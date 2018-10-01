@@ -9,7 +9,7 @@
 
 __author__ = 'tiagn'
 
-from ..context import Result
+from tests.context import Result
 import random
 
 try:

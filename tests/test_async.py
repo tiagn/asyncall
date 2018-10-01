@@ -7,7 +7,7 @@
 # Update Datetime:   2018/10/1 11:07
 # ---
 import pytest
-from .context import *
+from tests.context import *
 
 
 
@@ -19,9 +19,9 @@ except ImportError:
 import sys
 
 if '2' == sys.version[0]:
-    from .adaptive.python2 import demo
+    from tests.adaptive.python2 import demo
 else:
-    from .adaptive.python3 import demo
+    from tests.adaptive.python3 import demo
 
 __author__ = 'tiagn'
 
