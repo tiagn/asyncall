@@ -1,13 +1,5 @@
+# /usr/bin/env python
 # -*- coding:utf-8 -*-
-# File Name:         context
-# Description:   
-# ---
-# Author:            tiagn
-# Create Datetime:   2018/10/1 23:59
-# Update Datetime:   2018/10/1 23:59
-# ---
-
-__author__ = 'tiagn'
 
 import sys
 import os

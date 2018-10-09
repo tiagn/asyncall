@@ -1,11 +1,6 @@
+# /usr/bin/env python
 # -*- coding:utf-8 -*-
-# File Name:         test_async
-# Description:   
-# ---
-# Author:            tiagn
-# Create Datetime:   2018/10/1 11:07
-# Update Datetime:   2018/10/1 11:07
-# ---
+
 import pytest
 from tests.context import *
 

@@ -1,12 +1,5 @@
+# /usr/bin/env python
 # -*- coding:utf-8 -*-
-# File Name:         asyncall
-# Description:   
-# ---
-# Author:            tiagn
-# Create Datetime:   2018/10/1 11:03
-# Update Datetime:   2018/10/1 11:03
-# ---
-__author__ = 'tiagn'
 
 import sys
 import types
