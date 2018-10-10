@@ -4,8 +4,10 @@
 import logging
 import asyncio
 from asyncall.util import Result
+from logging import NullHandler
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__).addHandler(NullHandler())
+logger.addHandler(NullHandler())
 
 
 @asyncio.coroutine

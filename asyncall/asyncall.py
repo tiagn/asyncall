@@ -27,7 +27,7 @@ class AsyncManage(object):
 
     def __init__(self, loop=None):
         super(AsyncManage, self).__init__()
-        self._loop = loop if loop else asyncio.get_event_loop()
+        self._loop = loop if loop else asyncio.new_event_loop()
         self._result_queue = queue.Queue()
 
     def imap(self, tasks):

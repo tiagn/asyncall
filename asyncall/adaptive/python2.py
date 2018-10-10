@@ -11,11 +11,12 @@ except ImportError:
     import trollius as asyncio
 
 import logging
+from logging import NullHandler
 
 from asyncall.util import Result
 
-logger = logging.getLogger(__name__)
-
+logger = logging.getLogger(__name__).addHandler(NullHandler())
+logger.addHandler(NullHandler())
 
 @asyncio.coroutine
 def _work(task, result_queue, no_result, all_result):
