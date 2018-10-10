@@ -15,15 +15,23 @@ AUTHOR = 'tiagn'
 REQUIRES_PYTHON = '>=2.7'
 VERSION = '1.0.1'
 
-REQUIRED = [
-]
+
+if '2' == sys.version[0]:
+    with open('requirements.txt', 'r') as f:
+        REQUIRED = [pack.strip() for pack in f.readlines()]
+else:
+    REQUIRED = []
+
 
 EXTRAS = {
 }
 
 # The rest you shouldn't have to touch too much :)
 here = os.path.abspath(os.path.dirname(__file__))
-
+try:
+    FileNotFoundError
+except NameError:
+    FileNotFoundError = IOError
 try:
     with io.open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
         long_description = '\n' + f.read()
