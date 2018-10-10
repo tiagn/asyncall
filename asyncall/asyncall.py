@@ -15,8 +15,12 @@ except ImportError:
 
 if '2' == sys.version[0]:
     from .adaptive.python2 import _work
+
+    coroutine_type = types.GeneratorType
 else:
     from .adaptive.python3 import _work
+
+    coroutine_type = (types.GeneratorType, types.CoroutineType)
 
 
 class AsyncManage(object):
@@ -49,19 +53,19 @@ class AsyncManage(object):
     def wrap_task(self, *args):
         items = []
         for task in args:
-            if not isinstance(task, types.GeneratorType):
+            if not isinstance(task, coroutine_type):
                 raise TypeError
             items.append(self._wrap_task(task))
         return items
 
     def _run(self, tasks, no_result=True, all_result=True):
         items = []
-        if isinstance(tasks, (types.GeneratorType, types.CoroutineType)):
+        if isinstance(tasks, coroutine_type):
             task = _work(task=tasks, result_queue=self._result_queue, no_result=no_result, all_result=all_result)
             items.extend(self.wrap_task(task))
         elif isinstance(tasks, list):
             for task in tasks:
-                if isinstance(task, (types.GeneratorType, types.CoroutineType)):
+                if isinstance(task, coroutine_type):
 
                     task = _work(task=task, result_queue=self._result_queue, no_result=no_result,
                                  all_result=all_result)
