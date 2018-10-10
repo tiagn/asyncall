@@ -13,7 +13,7 @@ URL = 'https://github.com/tiagn/asyncall'
 EMAIL = '347618578@qq.com'
 AUTHOR = 'tiagn'
 REQUIRES_PYTHON = '>=2.7'
-VERSION = '1.0.0'
+VERSION = '1.0.1'
 
 REQUIRED = [
 ]
