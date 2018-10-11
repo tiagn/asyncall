@@ -15,7 +15,7 @@ from logging import NullHandler
 
 from asyncall.util import Result
 
-logger = logging.getLogger(__name__).addHandler(NullHandler())
+logger = logging.getLogger(__name__)
 logger.addHandler(NullHandler())
 
 @asyncio.coroutine

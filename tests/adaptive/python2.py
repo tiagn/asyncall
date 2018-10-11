@@ -9,6 +9,7 @@ try:
 except ImportError:
     import trollius as asyncio
 
+
 @asyncio.coroutine
 def demo(name):
     asleep = random.randint(0, 1)
@@ -16,3 +17,9 @@ def demo(name):
     yield asyncio.sleep(asleep)
     print('---stop, %s' % name)
     raise Result(name)
+
+
+@asyncio.coroutine
+def demo2(func):
+    func()
+    raise Result(func)

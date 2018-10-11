@@ -4,6 +4,7 @@
 from tests.context import Result
 import asyncio
 
+
 # @asyncio.coroutine
 # def demo(name):
 #     import random
@@ -22,3 +23,8 @@ async def demo(name):
     print('---stop, %s' % name)
     # raise Result(name)
     return name
+
+
+async def demo2(func):
+    func()
+    return func

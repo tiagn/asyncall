@@ -6,7 +6,7 @@ import asyncio
 from asyncall.util import Result
 from logging import NullHandler
 
-logger = logging.getLogger(__name__).addHandler(NullHandler())
+logger = logging.getLogger(__name__)
 logger.addHandler(NullHandler())
 
 

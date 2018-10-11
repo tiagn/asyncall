@@ -2,9 +2,12 @@
 # -*- coding:utf-8 -*-
 
 import pytest
+
 from tests.context import *
 
+import logging
 
+logging.basicConfig()
 
 try:
     import asyncio
@@ -15,8 +18,10 @@ import sys
 
 if '2' == sys.version[0]:
     from tests.adaptive.python2 import demo
+    from tests.adaptive.python2 import demo2
 else:
     from tests.adaptive.python3 import demo
+    from tests.adaptive.python3 import demo2
 
 __author__ = 'tiagn'
 
@@ -65,6 +70,16 @@ def test_task_map():
     res = task_map(tasks, async_func=demo)
     for r in res:
         assert r in tasks
+
+
+def test_neste_loop():
+    paras = [test_task_map, test_map]
+    res = task_map(paras, async_func=demo2)
+    for r in res:
+        assert r in paras
+    res = task_imap(paras, async_func=demo2)
+    for r in res:
+        assert r in paras
 
 
 if __name__ == '__main__':

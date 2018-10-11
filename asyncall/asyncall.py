@@ -3,6 +3,7 @@
 
 import sys
 import types
+import threading
 
 try:
     import queue
@@ -23,6 +24,12 @@ else:
     coroutine_type = (types.GeneratorType, types.CoroutineType)
 
 
+def new_thread_run(func, tasks, no_result, all_result):
+    thread = threading.Thread(target=func, args=(tasks, no_result, all_result))
+    thread.start()
+    thread.join()
+
+
 class AsyncManage(object):
 
     def __init__(self, loop=None):
@@ -36,8 +43,7 @@ class AsyncManage(object):
         while tasks:
             tasks.reverse()
             task = tasks.pop()
-            items = self._run(task, no_result=no_result, all_result=all_result)
-            self._loop.run_until_complete(asyncio.wait(items))
+            self.run([task], no_result, all_result)
             result = self._result_queue.get_nowait()
             yield result
 
@@ -58,7 +64,7 @@ class AsyncManage(object):
             items.append(self._wrap_task(task))
         return items
 
-    def _run(self, tasks, no_result=True, all_result=True):
+    def _run_prepare(self, tasks, no_result=True, all_result=True):
         items = []
         if isinstance(tasks, coroutine_type):
             task = _work(task=tasks, result_queue=self._result_queue, no_result=no_result, all_result=all_result)
@@ -77,9 +83,17 @@ class AsyncManage(object):
             raise TypeError
         return items
 
+    def _run(self, tasks, no_result, all_result):
+        if self._loop.is_running():
+            new_loop = asyncio.new_event_loop()
+        else:
+            new_loop = self._loop
+        asyncio.set_event_loop(new_loop)
+        items = self._run_prepare(tasks, no_result, all_result)
+        new_loop.run_until_complete(asyncio.wait(items))
+
     def run(self, tasks, no_result=True, all_result=True):
-        items = self._run(tasks, no_result, all_result)
-        self._loop.run_until_complete(asyncio.wait(items))
+        new_thread_run(self._run, tasks, no_result, all_result)
 
 
 class AsyncTaskManage:
@@ -101,9 +115,7 @@ class AsyncTaskManage:
 
     def imap(self, tasks):
         tasks = self._wrapper_para(tasks)
-        task_generator = self._async_manage.imap(tasks)
-        while tasks:
-            yield next(task_generator)
+        return self._async_manage.imap(tasks)
 
     def map(self, tasks):
         tasks = self._wrapper_para(tasks)

@@ -15,13 +15,14 @@ AUTHOR = 'tiagn'
 REQUIRES_PYTHON = '>=2.7'
 VERSION = '1.0.1'
 
-
 if '2' == sys.version[0]:
-    with open('requirements.txt', 'r') as f:
-        REQUIRED = [pack.strip() for pack in f.readlines()]
+    # with open('requirements.txt', 'r') as f:
+    #     REQUIRED = [pack.strip() for pack in f.readlines()]
+    REQUIRED = ["futures>=3.2.0", "six>=1.11.0", "trollius==2.2"]
 else:
     REQUIRED = []
 
+TESTS_REQUIRED = ["pytest>=3.8.2"]
 
 EXTRAS = {
 }
@@ -94,6 +95,7 @@ setup(
     url=URL,
     packages=find_packages(exclude=('tests',)),
     install_requires=REQUIRED,
+    tests_require=TESTS_REQUIRED,
     extras_require=EXTRAS,
     include_package_data=True,
     license='Apache License, Version 2.0',
