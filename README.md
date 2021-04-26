@@ -1,12 +1,13 @@
 # asyncall  -- 更加简单方便的异步调用方式
 
+# 归档，请使用 Python3 原生异步语法
 
-# 特性
+## 特性
 1. 支持 python2 和 python3
 2. 更加方便的异步调用方式
 3. 支持惰性获取结果
 
-# 用法
+## 用法
 ```
 >>> import asyncio
 >>> import asyncall
@@ -22,5 +23,5 @@
 ```
 详见 tests/test_async.py
 
-# 注意
+## 注意
 1. python2 需要安装相关第三方库（requirements.txt）
